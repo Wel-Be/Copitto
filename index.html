@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Copitto（コピット）</title>
+  <meta name="description" content="文章をサッと作成。コピーや共有もワンタップ。入力した文章は保存されません。">
+  <meta name="theme-color" content="#FFFFFF">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Copitto">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- アイコン定義 -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></symbol>
+  <symbol id="i-share" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.59 13.51l6.83 3.98M15.41 6.51l-6.82 3.98"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24"><path d="M3 6h18"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M10 11v6M14 11v6"/></symbol>
+  <symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></symbol>
+  <symbol id="i-heart" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></symbol>
+  <symbol id="i-right" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></symbol>
+  <symbol id="i-left" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></symbol>
+  <symbol id="i-close" viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></symbol>
+</svg>
+
+<!-- ============ メイン画面 ============ -->
+<main class="app" id="main">
+  <header class="app-head">
+    <img class="logo" src="assets/logo.png" alt="Copitto" width="147" height="46">
+    <button type="button" class="icon-btn" id="btn-settings" aria-label="設定を開く">
+      <svg class="icon icon-lg" aria-hidden="true"><use href="#i-gear"/></svg>
+    </button>
+  </header>
+
+  <div class="app-body">
+    <p class="lead">文章をサッと作成<br>コピーや共有もワンタップ。</p>
+
+    <div class="editor">
+      <label for="text" class="sr-only">文章</label>
+      <textarea id="text" placeholder="ここに文章を入力してください" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false"></textarea>
+      <p class="counter" id="counter" aria-live="off">0文字</p>
+    </div>
+
+    <div class="actions">
+      <button type="button" class="btn btn-primary" id="btn-copy" disabled>
+        <svg class="icon" aria-hidden="true"><use href="#i-copy"/></svg>
+        <span>コピーする</span>
+      </button>
+      <button type="button" class="btn btn-outline" id="btn-share" disabled>
+        <svg class="icon" aria-hidden="true"><use href="#i-share"/></svg>
+        <span>他のアプリに共有</span>
+      </button>
+      <button type="button" class="btn btn-clear" id="btn-clear" disabled>
+        <svg class="icon" aria-hidden="true"><use href="#i-trash"/></svg>
+        <span>クリア</span>
+      </button>
+    </div>
+  </div>
+
+  <footer class="app-foot">
+    <button type="button" class="link-row" data-open="howto">
+      <svg class="icon" aria-hidden="true"><use href="#i-help"/></svg>
+      <span>アプリの使い方</span>
+      <svg class="icon icon-sm" aria-hidden="true"><use href="#i-right"/></svg>
+    </button>
+    <a class="link-row link-ofuse" href="https://ofuse.me/f3a8ad6a" target="_blank" rel="noopener noreferrer">
+      <svg class="icon icon-fill" aria-hidden="true"><use href="#i-heart"/></svg>
+      <span>改善のアイディア・応援はこちら</span>
+    </a>
+    <p class="meta"><span data-company>Wel (Be)</span><span class="meta-sep" aria-hidden="true"></span><span data-version>Ver. 1.0.0</span></p>
+  </footer>
+</main>
+
+<!-- ============ 設定画面 ============ -->
+<section class="view" id="view-settings" role="dialog" aria-modal="true" aria-labelledby="t-settings">
+  <div class="view-inner">
+    <header class="view-head">
+      <span class="head-slot"></span>
+      <h1 id="t-settings">設定</h1>
+      <button type="button" class="icon-btn" data-close-all aria-label="設定を閉じる">
+        <svg class="icon icon-lg" aria-hidden="true"><use href="#i-close"/></svg>
+      </button>
+    </header>
+
+    <div class="view-body">
+      <fieldset class="group">
+        <legend class="group-title">共有する文章</legend>
+        <label class="radio-row">
+          <input type="radio" name="shareFormat" value="appname">
+          <span class="radio-mark" aria-hidden="true"></span>
+          <span class="radio-text"><strong>アプリ名＋文章</strong><small>先頭に「Copittoで作成した文章：」を付けて共有します</small></span>
+        </label>
+        <label class="radio-row">
+          <input type="radio" name="shareFormat" value="textonly">
+          <span class="radio-mark" aria-hidden="true"></span>
+          <span class="radio-text"><strong>文章のみ</strong><small>入力した文章だけを共有します</small></span>
+        </label>
+      </fieldset>
+
+      <ul class="list">
+        <li><button type="button" class="list-row" data-open="howto"><span>アプリの使い方</span><svg class="icon icon-sm" aria-hidden="true"><use href="#i-right"/></svg></button></li>
+        <li><button type="button" class="list-row" data-open="install"><span>アプリのインストール方法</span><svg class="icon icon-sm" aria-hidden="true"><use href="#i-right"/></svg></button></li>
+        <li><button type="button" class="list-row" data-open="privacy"><span>プライバシーポリシー</span><svg class="icon icon-sm" aria-hidden="true"><use href="#i-right"/></svg></button></li>
+        <li><a class="list-row" href="https://ofuse.me/f3a8ad6a" target="_blank" rel="noopener noreferrer"><span>改善のアイディア・応援はこちら</span><svg class="icon icon-sm" aria-hidden="true"><use href="#i-right"/></svg></a></li>
+      </ul>
+
+      <dl class="about">
+        <div><dt>バージョン情報</dt><dd data-version>Ver. 1.0.0</dd></div>
+        <div><dt>開発</dt><dd data-company>Wel (Be)</dd></div>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<!-- ============ アプリの使い方 ============ -->
+<section class="view" id="view-howto" role="dialog" aria-modal="true" aria-labelledby="t-howto">
+  <div class="view-inner">
+    <header class="view-head">
+      <button type="button" class="icon-btn" data-back aria-label="戻る"><svg class="icon icon-lg" aria-hidden="true"><use href="#i-left"/></svg></button>
+      <h1 id="t-howto">アプリの使い方</h1>
+      <button type="button" class="icon-btn" data-close-all aria-label="閉じる"><svg class="icon icon-lg" aria-hidden="true"><use href="#i-close"/></svg></button>
+    </header>
+    <div class="view-body prose">
+      <h2>1. 文章を入力する</h2>
+      <p>入力欄に好きな文章を入力してください。</p>
+      <h2>2. コピーする</h2>
+      <p>「コピーする」を押すと、文章がコピーされます。</p>
+      <h2>3. 他のアプリに共有する</h2>
+      <p>「他のアプリに共有」を押し、LINEなどの共有先を選択します。</p>
+      <h2>4. 文章を消去する</h2>
+      <p>「クリア」を押すと、入力した文章を消去できます。</p>
+      <h2>ご注意</h2>
+      <p>入力した文章は保存されません。<br>ページを閉じたり再読み込みしたりすると、入力内容は消去されます。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ アプリのインストール方法 ============ -->
+<section class="view" id="view-install" role="dialog" aria-modal="true" aria-labelledby="t-install">
+  <div class="view-inner">
+    <header class="view-head">
+      <button type="button" class="icon-btn" data-back aria-label="戻る"><svg class="icon icon-lg" aria-hidden="true"><use href="#i-left"/></svg></button>
+      <h1 id="t-install">アプリのインストール方法</h1>
+      <button type="button" class="icon-btn" data-close-all aria-label="閉じる"><svg class="icon icon-lg" aria-hidden="true"><use href="#i-close"/></svg></button>
+    </header>
+    <div class="view-body prose">
+      <h2>iPhone（Safari）</h2>
+      <ol>
+        <li>SafariでCopittoを開きます。</li>
+        <li>画面下部の「共有」をタップします。</li>
+        <li>「ホーム画面に追加」をタップします。</li>
+        <li>右上の「追加」をタップします。</li>
+      </ol>
+      <h2>Android（Chrome）</h2>
+      <ol>
+        <li>ChromeでCopittoを開きます。</li>
+        <li>右上の「︙」をタップします。</li>
+        <li>「ホーム画面に追加」または「インストール」をタップします。</li>
+        <li>「追加」または「インストール」をタップします。</li>
+      </ol>
+      <p class="note">実際の表示名称は、端末やブラウザのバージョンによって異なる場合があります。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ プライバシーポリシー ============ -->
+<section class="view" id="view-privacy" role="dialog" aria-modal="true" aria-labelledby="t-privacy">
+  <div class="view-inner">
+    <header class="view-head">
+      <button type="button" class="icon-btn" data-back aria-label="戻る"><svg class="icon icon-lg" aria-hidden="true"><use href="#i-left"/></svg></button>
+      <h1 id="t-privacy">プライバシーポリシー</h1>
+      <button type="button" class="icon-btn" data-close-all aria-label="閉じる"><svg class="icon icon-lg" aria-hidden="true"><use href="#i-close"/></svg></button>
+    </header>
+    <div class="view-body prose">
+      <h2>入力情報の取り扱い</h2>
+      <p>Copittoに入力された文章は、利用者のブラウザ上で処理します。</p>
+      <p>入力内容を開発者のサーバーや外部サービスに送信することはありません。</p>
+      <p>入力内容をデータベースやブラウザ内に保存することはありません。ページの再読み込みや終了などによって、入力内容は失われます。</p>
+
+      <h2>外部サービスについて</h2>
+      <p>アクセス状況の把握を目的として、アクセス解析サービス「GoatCounter」を利用しています。</p>
+      <p>解析の対象はアクセス数などの利用状況に限ります。入力した文章や共有する文章をアクセス解析に送信することはありません。</p>
+
+      <h2>設定情報について</h2>
+      <p>共有形式の設定を維持するため、ブラウザ内に設定情報を保存します。保存する情報は、共有形式の選択内容のみです。</p>
+
+      <h2>共有機能について</h2>
+      <p>共有ボタンを押した場合、利用者が選択した外部アプリに文章が渡されます。共有先での情報の取り扱いについては、それぞれのアプリやサービスのプライバシーポリシーに従います。</p>
+
+      <p class="note">開発：<span data-company>Wel (Be)</span>　<span data-version>Ver. 1.0.0</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 文章の消去確認 ============ -->
+<div class="modal" id="confirm" role="alertdialog" aria-modal="true" aria-labelledby="confirm-msg" aria-hidden="true">
+  <div class="modal-box">
+    <p id="confirm-msg">入力した文章をすべて消去しますか？</p>
+    <div class="modal-actions">
+      <button type="button" class="btn btn-sub" id="confirm-cancel">キャンセル</button>
+      <button type="button" class="btn btn-primary" id="confirm-ok">消去する</button>
+    </div>
+  </div>
+</div>
+
+<!-- トースト -->
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="version.js"></script>
+<script src="script.js"></script>
+
+<!-- GoatCounter（アクセス数のみ。入力文章は送信しません） -->
+<script
+  data-goatcounter="https://wel-be.goatcounter.com/count"
+  async
+  src="//gc.zgo.at/count.js">
+</script>
+</body>
+</html>

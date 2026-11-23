@@ -1,0 +1,314 @@
+:root {
+  --bg: #FFFFFF;
+  --field: #FFFFFF;
+  --line: #E5E5E5;
+  --text: #333333;
+  --muted: #888888;
+  --muted-strong: #6B6B6B;
+  --main: #555F5A;
+  --main-dark: #474F4B;
+  --main-text: #FFFFFF;
+  --sub: #F5F5F3;
+  --sub-dark: #ECECE9;
+  --outline: #A9ADAB;
+  --radius: 999px;
+  --font: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic UI", "Yu Gothic", Meiryo, system-ui, sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 16px;
+  line-height: 1.7;
+  -webkit-tap-highlight-color: transparent;
+}
+
+button, input, textarea { font: inherit; color: inherit; }
+button { cursor: pointer; }
+a { color: inherit; }
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+:focus-visible { outline: 2px solid var(--main); outline-offset: 2px; }
+
+/* ---------- アイコン ---------- */
+.icon {
+  width: 22px; height: 22px; flex: none;
+  fill: none; stroke: currentColor; stroke-width: 2;
+  stroke-linecap: round; stroke-linejoin: round;
+}
+.icon-lg { width: 26px; height: 26px; }
+.icon-sm { width: 18px; height: 18px; }
+.icon-fill { fill: currentColor; stroke: none; }
+
+/* ---------- メイン画面 ---------- */
+.app {
+  max-width: 480px;
+  min-height: 100vh;
+  min-height: 100dvh;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.app-head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 20px 12px;
+  border-bottom: 1px solid var(--line);
+}
+.logo { display: block; height: 44px; width: auto; }
+
+.icon-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 44px; height: 44px; margin: -6px -8px -6px 0;
+  background: none; border: 0; border-radius: 50%;
+  color: #555B58;
+}
+.icon-btn:hover { background: var(--sub); }
+.icon-btn:active { background: var(--sub-dark); }
+
+.app-body { flex: 1; padding: 18px 20px 8px; }
+
+.lead {
+  margin: 0 0 16px;
+  color: var(--muted-strong);
+  font-size: 17px;
+  line-height: 1.65;
+}
+
+.editor {
+  position: relative;
+  background: var(--field);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  transition: border-color .15s;
+}
+.editor:focus-within { border-color: var(--main); }
+
+#text {
+  display: block; width: 100%;
+  height: clamp(220px, 40dvh, 340px);
+  padding: 16px 16px 40px;
+  border: 0; border-radius: 14px;
+  background: transparent;
+  resize: none;
+  font-size: 17px;   /* 16px未満だとiPhoneで拡大されるため */
+  line-height: 1.7;
+  overflow-y: auto;
+}
+#text::placeholder { color: var(--muted); }
+#text:focus { outline: none; }
+
+.counter {
+  position: absolute; right: 16px; bottom: 10px; margin: 0;
+  color: var(--muted); font-size: 14px; line-height: 1;
+  pointer-events: none;
+  font-variant-numeric: tabular-nums;
+}
+
+.actions { display: flex; flex-direction: column; align-items: center; gap: 12px; margin-top: 20px; }
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  min-height: 56px; width: 100%;
+  padding: 0 24px;
+  border: 1.5px solid transparent; border-radius: var(--radius);
+  font-size: 18px; font-weight: 600; line-height: 1.2;
+  transition: background-color .12s, transform .08s, opacity .12s;
+}
+.btn:active:not(:disabled) { transform: scale(.985); }
+.btn:disabled { opacity: .4; cursor: not-allowed; }
+
+.btn-primary { background: var(--main); color: var(--main-text); }
+.btn-primary:hover:not(:disabled) { background: var(--main-dark); }
+
+.btn-outline { background: var(--bg); color: var(--text); border-color: var(--outline); }
+.btn-outline:hover:not(:disabled) { background: var(--sub); }
+
+.btn-sub, .btn-clear { background: var(--sub); color: #4A4F4C; }
+.btn-sub:hover:not(:disabled), .btn-clear:hover:not(:disabled) { background: var(--sub-dark); }
+
+.btn-clear { width: 58%; min-height: 48px; font-size: 16px; font-weight: 600; margin-top: 2px; }
+.btn-clear .icon { width: 20px; height: 20px; }
+
+/* ---------- フッター ---------- */
+.app-foot {
+  margin: 20px 20px 0; padding: 12px 0 18px;
+  border-top: 1px solid var(--line);
+  display: flex; flex-direction: column; align-items: center; gap: 2px;
+}
+
+.link-row {
+  display: inline-flex; align-items: center; gap: 8px;
+  min-height: 44px; padding: 0 12px;
+  background: none; border: 0; border-radius: 10px;
+  color: var(--muted-strong); font-size: 16px; text-decoration: none;
+}
+.link-row:hover { background: var(--sub); }
+.link-ofuse { font-size: 15px; }
+.link-ofuse .icon { width: 20px; height: 20px; color: #7A7F7C; }
+
+.meta {
+  display: flex; align-items: center; gap: 14px;
+  margin: 8px 0 0; color: var(--muted); font-size: 14px;
+}
+.meta-sep { width: 1px; height: 14px; background: var(--line); }
+
+/* ---------- サブ画面（設定・説明） ---------- */
+.view {
+  position: fixed; inset: 0;
+  background: var(--bg);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  visibility: hidden; opacity: 0; transform: translateY(10px);
+  transition: opacity .18s ease, transform .18s ease, visibility 0s linear .18s;
+}
+.view.is-open {
+  visibility: visible; opacity: 1; transform: none;
+  transition-delay: 0s;
+}
+
+.view-inner {
+  max-width: 480px; min-height: 100%; margin: 0 auto;
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.view-head {
+  position: sticky; top: 0; z-index: 1;
+  display: grid; grid-template-columns: 44px 1fr 44px; align-items: center;
+  padding: 10px 14px;
+  background: var(--bg);
+  border-bottom: 1px solid var(--line);
+}
+.view-head h1 { margin: 0; text-align: center; font-size: 17px; font-weight: 700; line-height: 1.3; }
+.view-head .icon-btn { margin: 0; }
+
+.view-body { padding: 22px 20px 40px; }
+
+.group { margin: 0 0 24px; padding: 0; border: 0; min-width: 0; }
+.group-title { padding: 0; margin-bottom: 10px; font-size: 14px; font-weight: 700; color: var(--muted-strong); }
+
+.radio-row {
+  position: relative;
+  display: flex; align-items: flex-start; gap: 14px;
+  padding: 14px 16px; margin-bottom: 10px;
+  border: 1px solid var(--line); border-radius: 14px;
+  cursor: pointer;
+  transition: border-color .15s, background-color .15s;
+}
+.radio-row input { position: absolute; opacity: 0; inset: 0; width: 100%; height: 100%; margin: 0; cursor: pointer; }
+.radio-mark {
+  flex: none; width: 22px; height: 22px; margin-top: 2px;
+  border: 2px solid var(--outline); border-radius: 50%;
+  background: var(--bg);
+  display: grid; place-items: center;
+}
+.radio-mark::after {
+  content: ""; width: 10px; height: 10px; border-radius: 50%;
+  background: var(--main); transform: scale(0); transition: transform .12s;
+}
+.radio-text { display: flex; flex-direction: column; min-width: 0; }
+.radio-text strong { font-size: 16px; line-height: 1.5; }
+.radio-text small { color: var(--muted-strong); font-size: 13px; line-height: 1.5; }
+.radio-row:has(input:checked) { border-color: var(--main); background: var(--sub); }
+.radio-row:has(input:checked) .radio-mark { border-color: var(--main); }
+.radio-row:has(input:checked) .radio-mark::after { transform: scale(1); }
+.radio-row:has(input:focus-visible) { outline: 2px solid var(--main); outline-offset: 2px; }
+
+.list { list-style: none; margin: 0 0 28px; padding: 0; border-top: 1px solid var(--line); }
+.list li { border-bottom: 1px solid var(--line); }
+.list-row {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  width: 100%; min-height: 56px; padding: 0 4px;
+  background: none; border: 0; text-align: left; text-decoration: none;
+  font-size: 16px; color: var(--text);
+}
+.list-row:hover { background: var(--sub); }
+.list-row .icon { color: var(--muted); }
+
+.about { margin: 0; color: var(--muted-strong); font-size: 14px; }
+.about div { display: flex; justify-content: space-between; padding: 6px 4px; }
+.about dt, .about dd { margin: 0; }
+
+/* ---------- 説明文 ---------- */
+.prose h2 { margin: 28px 0 6px; font-size: 16px; font-weight: 700; line-height: 1.5; }
+.prose h2:first-child { margin-top: 0; }
+.prose p { margin: 0 0 10px; }
+.prose ol { margin: 0 0 8px; padding-left: 1.6em; }
+.prose li { margin-bottom: 6px; padding-left: 4px; }
+.prose .note { margin-top: 24px; color: var(--muted-strong); font-size: 14px; }
+
+/* ---------- 確認ダイアログ ---------- */
+.modal {
+  position: fixed; inset: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: center;
+  padding: 24px;
+  background: rgba(51, 51, 51, .38);
+  visibility: hidden; opacity: 0;
+  transition: opacity .15s, visibility 0s linear .15s;
+}
+.modal.is-open { visibility: visible; opacity: 1; transition-delay: 0s; }
+.modal-box {
+  width: 100%; max-width: 360px;
+  padding: 24px 20px 20px;
+  background: var(--bg); border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, .14);
+}
+.modal-box p { margin: 0 0 20px; font-size: 17px; font-weight: 600; line-height: 1.6; text-align: center; }
+.modal-actions { display: flex; flex-direction: column-reverse; gap: 10px; }
+.modal-actions .btn { min-height: 52px; font-size: 16px; }
+
+/* ---------- トースト ---------- */
+.toast {
+  position: fixed; left: 50%; z-index: 200;
+  bottom: calc(28px + env(safe-area-inset-bottom));
+  width: max-content; max-width: calc(100% - 40px);
+  padding: 12px 22px;
+  background: #3F4643; color: #fff;
+  border-radius: var(--radius);
+  font-size: 15px; font-weight: 600; text-align: center;
+  transform: translate(-50%, 12px);
+  opacity: 0; visibility: hidden;
+  transition: opacity .18s, transform .18s, visibility 0s linear .18s;
+  pointer-events: none;
+}
+.toast.is-show { opacity: 1; visibility: visible; transform: translate(-50%, 0); transition-delay: 0s; }
+
+/* ---------- PC表示 ---------- */
+@media (min-width: 600px) {
+  body { background: var(--sub); }
+  .app {
+    min-height: 0;
+    margin: 32px auto;
+    border: 1px solid var(--line);
+    border-radius: 24px;
+    box-shadow: 0 2px 16px rgba(0, 0, 0, .04);
+    overflow: hidden;
+  }
+  .view { background: rgba(245, 245, 243, .96); }
+  .view-inner { background: var(--bg); border-left: 1px solid var(--line); border-right: 1px solid var(--line); }
+  .modal-actions { flex-direction: row-reverse; }
+  .modal-actions .btn { flex: 1; }
+  #text { height: 320px; }
+}
+
+@media (max-height: 560px) and (max-width: 599px) {
+  #text { height: 150px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition-duration: 0s !important; transition-delay: 0s !important; }
+}
