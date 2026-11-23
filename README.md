@@ -1,4 +1,4 @@
-# Copitto（コピット）Ver. 1.0.0
+# Copitto（コピット）Ver. 1.1.0
 開発：Wel (Be)
 
 ## 公開手順（GitHub Pages）

@@ -12,7 +12,7 @@
   var SETTINGS_KEY = 'copitto.shareFormat';
   var FORMAT_APP = 'appname';
   var FORMAT_TEXT = 'textonly';
-  var SHARE_PREFIX = 'Copittoで作成した文章：';
+  var SHARE_SUFFIX = '：Copittoで作成';
 
   function $(sel, root) { return (root || document).querySelector(sel); }
   function $all(sel, root) { return Array.prototype.slice.call((root || document).querySelectorAll(sel)); }
@@ -125,7 +125,7 @@
 
   /* ---------- 共有 ---------- */
   function buildShareText() {
-    return shareFormat === FORMAT_TEXT ? ta.value : SHARE_PREFIX + '\n' + ta.value;
+    return shareFormat === FORMAT_TEXT ? ta.value : ta.value + SHARE_SUFFIX;
   }
 
   btnShare.addEventListener('click', async function () {

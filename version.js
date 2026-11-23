@@ -3,6 +3,6 @@
    更新時はこのファイルの version だけを書き換えてください。 */
 self.COPITTO = {
   name: 'Copitto',
-  version: '1.0.0',
+  version: '1.1.0',
   company: 'Wel (Be)'
 };
